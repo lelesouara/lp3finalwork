@@ -60,9 +60,9 @@
 			</ul>
 			<h3 class="text-muted">LP3 - Cart</h3>
 		</div>
-
+<!-- 
 		<br>
-
+	
 		<div class="jumbotron">
 			<h1>Carrinho de Compras</h1>
 			<p class="lead">Desenvolvimento de um carrinho de compras na
@@ -74,7 +74,7 @@
 					role="button">Faça sua Conta</a>
 			</p>
 		</div>
-
+ -->
 		<div class="container">
 			<%
 				String pagina = (String) request.getAttribute("pagina");
