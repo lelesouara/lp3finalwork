@@ -44,4 +44,14 @@
     <servlet-name>CategoriaController</servlet-name>
     <url-pattern>/CategoriaController</url-pattern>
   </servlet-mapping>
+    <servlet>
+    <description></description>
+    <display-name>ProdutoController</display-name>
+    <servlet-name>ProdutoController</servlet-name>
+    <servlet-class>projetofinal.lp3.controllers.ProdutoController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ProdutoController</servlet-name>
+    <url-pattern>/ProdutoController</url-pattern>
+  </servlet-mapping>
 </web-app>

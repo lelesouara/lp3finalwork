@@ -51,8 +51,8 @@
 		<b>Menu Admin:</b>
 		<div class="btn-group">
 			<a href='CategoriaController?action=listar_admin&pagina=ListarCategorias' type="button" class="btn btn-primary">Categoria</a>
-			<a href='ProdutoController?action=redirect&pagina=ListarProdutos' type="button" class="btn btn-success">Produtos</a>
-			<a href='OrdemservicoController?action=redirect&pagina=ListarOrdemservico' type="button" class="btn btn-warning">Ordem de Serviço</a>
+			<a href='ProdutoController?action=listar_admin&pagina=ListarProdutos' type="button" class="btn btn-success">Produtos</a>
+			<a href='OrdemservicoController?action=listar_admin&pagina=ListarOrdemservico' type="button" class="btn btn-warning">Ordem de Serviço</a>
 		</div>
 
 	</div>

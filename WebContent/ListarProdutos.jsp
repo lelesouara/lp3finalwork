@@ -1,7 +1,7 @@
-
-<%@page import="org.json.simple.JSONObject"%>
-<%@page import="java.util.List"%>
 <%@page import="projetofinal.lp3.models.Categoria"%>
+<%@page import="projetofinal.lp3.models.Produto"%>
+<%@page import="java.util.List"%>
+<%@page import="org.json.simple.JSONObject"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="projetofinal.lp3.models.Usuario"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -20,7 +20,7 @@
 
 <div class="page-header">
 	<h1>
-		Categorias <small>Todas as categorias</small>
+		Produtos <small>Todas os produtos</small>
 	</h1>
 </div>
 
@@ -32,21 +32,21 @@
 
 <div style='width: 500px'>
 	<div id='opcoesBox'>
-		<p>Ações para categoria:</p>
+		<p>Ações para produtos:</p>
 		<select name='opcoes' id='opcoes' class="form-control">
 			<option value selected>Selecione uma opção</option>
-			<option value="buscar">Buscar Categoria</option>
-			<option value="adicionar">Adicionar Categoria</option>
-			<option value="deletar">Deletar Categoria</option>
+			<option value="buscar">Buscar Produto</option>
+			<option value="adicionar">Adicionar Produto</option>
+			<option value="deletar">Deletar Produto</option>
 		</select> <br>
 		<button type="submit" id='botaopcoes' onclick='executaOpcoes();'
 			class="btn btn-default">Executar</button>
 	</div>
 
-	<div id='search-categorias' style="display: none;"
-		title="Buscar Categoria">
+	<div id='search-produtos' style="display: none;"
+		title="Buscar Produtos">
 		<form
-			action="CategoriaController?action=listar_admin&pagina=ListarCategorias"
+			action="ProdutoController?action=listar_admin&pagina=ListarProdutos"
 			method='post'>
 			<div class="form-group">
 				<label for="titulo" class="col-sm-2 control-label">Titulo</label>
@@ -64,10 +64,10 @@
 		</form>
 	</div>
 
-	<div id='add-categorias' style="display: none;"
-		title="Adicionar Categoria">
+	<div id='add-produtos' style="display: none;"
+		title="Adicionar Produto">
 		<form
-			action="CategoriaController?action=add_admin&pagina=ListarCategorias"
+			action="ProdutoController?action=add_admin&pagina=ListarProdutos"
 			method='post'>
 			<div class="form-group">
 				<label for="titulo" class="col-sm-2 control-label">Titulo</label>
@@ -85,11 +85,26 @@
 		</form>
 	</div>
 	
-	<div id='editar-categorias' style="display: none;"
-		title="Editar Categoria">
+	<div id='editar-produtos' style="display: none;"
+		title="Editar Produto">
 		<form
-			action="CategoriaController?action=editar_admin&pagina=ListarCategorias"
+			action="ProdutoController?action=editar_admin&pagina=ListarProdutos"
 			method='post'>
+			<div class="form-group">
+				<label for="categoria" class="col-sm-2 control-label">Categoria</label>
+				<br>
+				<div class="col-sm-10">
+					<select name='categoria' id='categoria_editar'>
+						<%
+							List<Categoria> categorias = (ArrayList<Categoria>) request.getAttribute("categorias");
+							for(Categoria auxCat : categorias){
+						%>
+						<option value='<%= auxCat.getCategoria_id() %>'> <%=auxCat.getTitulo() %> </option>
+						<% } %>
+					</select>
+				</div>
+			</div>
+			<br>
 			<div class="form-group">
 				<label for="titulo" class="col-sm-2 control-label">Titulo</label>
 				<div class="col-sm-10">
@@ -97,14 +112,37 @@
 						placeholder="Nome da Categoria" required="required">
 				</div>
 			</div>
-			<br> <br>
+			<br>
+			<div class="form-group">
+				<label for="titulo" class="col-sm-2 control-label">Valor</label>
+				<div class="col-sm-10">
+					<input type="text" name='valor' class="form-control" id="valor-editar" 
+					required="required">
+				</div>
+			</div>
+			<br>
+			<div class="form-group">
+				<label for="titulo" class="col-sm-2 control-label">Desc</label>
+				<div class="col-sm-10">
+					<textarea rows="3" cols="20" name='descricao' id='descricao-editar'></textarea>
+				</div>
+			</div>
+			<br>
 			<div class="form-group">
 				<div class="col-sm-offset-2 col-sm-10">
-					<input type = "hidden" id='categoriaid-editar' name ="categoria_id"> 
+					<input type = "hidden" id='produtoid-editar' name ="produto_id"> 
 					<button type="submit" id='botao-editar' class="btn btn-default">Editar</button>
 				</div>
 			</div>
 		</form>
+	</div>
+	
+	<div id='detalhes-produtos' style="display: none;"
+		title="Detalhes do Produto">
+		<p id='titulo-detalhes' style="font-weight: bold"></p>
+		<p id='valor-detalhes'></p>
+		<p id='descricao-detalhes'></p>
+		<span id='categoria-detalhes' class="badge"></span>
 	</div>
 
 	<br>
@@ -113,24 +151,30 @@
 		<tr>
 			<td></td>
 			<td>Id</td>
+			<td>Categoria</td>
 			<td>Titulo</td>
 			<td></td>
 		</tr>
 		<%
-			List<Categoria> categorias = (List<Categoria>) request
-					.getAttribute("categorias");
-			for (Categoria aux : categorias) {
+			List<Produto> produtos = (List<Produto>) request
+					.getAttribute("produtos");
+			for (Produto aux : produtos) {
 				
 				JSONObject jsonObj = new JSONObject();
-				jsonObj.put("categoria_id", aux.getCategoria_id());
+				jsonObj.put("produto_id", aux.getProduto_id());
 				jsonObj.put("titulo", aux.getTitulo());
+				jsonObj.put("descricao", aux.getDescricao());
+				jsonObj.put("valor", aux.getValor());
+				jsonObj.put("categoria_id", aux.getCategoria().getCategoria_id());
+				jsonObj.put("categoria_titulo", aux.getCategoria().getTitulo());
 		%>
-		<tr id='<%=aux.getCategoria_id()%>'>
+		<tr id='<%=aux.getProduto_id()%>'>
 			<td><input type='checkbox' name='marcados'
-				value='<%=aux.getCategoria_id()%>'></td>
-			<td><%=aux.getCategoria_id()%></td>
+				value='<%=aux.getProduto_id()%>'></td>
+			<td><%=aux.getProduto_id()%></td>
+			<td><a href='CategoriaController?action=listar_admin&pagina=ListarCategorias'><%=aux.getCategoria().getTitulo() %></a></td>
 			<td><%=aux.getTitulo()%></td>
-			<td><a class='btn btn-info' href='#' onclick='editar(<%=jsonObj%>)'>Editar</a></td>
+			<td><a class='btn btn-success' href='#' onclick='detalhes(<%=jsonObj%>)'>Detalhes</a> &nbsp; <a class='btn btn-success' href='#' onclick='editar(<%=jsonObj%>)'>Editar</a></td>
 		</tr>
 		<%
 			}
@@ -144,9 +188,9 @@
 
 <script>
 	function editar(jsonObject){
-			document.getElementById('editar-categorias').style.display = 'block';
+			document.getElementById('editar-produtos').style.display = 'block';
 			$(function() {
-				$("#editar-categorias").dialog({
+				$("#editar-produtos").dialog({
 					modal : true,
 					show : {
 						effect : "clip",
@@ -160,7 +204,42 @@
 			});
 			
 			document.getElementById('titulo-editar').value = jsonObject.titulo;
-			document.getElementById('categoriaid-editar').value = jsonObject.categoria_id;
+			document.getElementById('valor-editar').value = jsonObject.valor;
+			document.getElementById('descricao-editar').value = jsonObject.descricao;
+			document.getElementById('produtoid-editar').value = jsonObject.produto_id;
+			
+			atualizaParaSelecionada(jsonObject.categoria_id);
+	}
+	
+	function atualizaParaSelecionada(id){
+		var selectbox = document.getElementById('categoria_editar').options;
+		for( var i=0; i < selectbox.length; i++){
+			if(selectbox[i].value == id){
+				selectbox[i].selected = 'selected';
+			}
+		};
+	}	
+	
+	function detalhes(jsonObject){
+		document.getElementById('detalhes-produtos').style.display = 'block';
+		$(function() {
+			$("#detalhes-produtos").dialog({
+				modal : true,
+				show : {
+					effect : "clip",
+					duration : 300
+				},
+				hide : {
+					effect : "clip",
+					duration : 300
+				}
+			});
+		});
+		
+		document.getElementById('titulo-detalhes').innerHTML = jsonObject.titulo;
+		document.getElementById('valor-detalhes').innerHTML = "R$: "+jsonObject.valor;
+		document.getElementById('descricao-detalhes').innerHTML = jsonObject.descricao;
+		document.getElementById('categoria-detalhes').innerHTML = jsonObject.categoria_titulo;
 	}
 
 	function executaOpcoes() {
@@ -183,9 +262,9 @@
 						.getElementById('spanError-Opcoes'));
 
 			if (selectOpcoes.value == "buscar") {
-				document.getElementById('search-categorias').style.display = 'block';
+				document.getElementById('search-produtos').style.display = 'block';
 				$(function() {
-					$("#search-categorias").dialog({
+					$("#search-produtos").dialog({
 						modal : true,
 						show : {
 							effect : "clip",
@@ -226,7 +305,7 @@
 							.ajax(
 									{
 										type : "POST",
-										url : "CategoriaController?action=deletar_admin",
+										url : "ProdutoController?action=deletar_admin",
 										data : {
 											id : arrValues[i]
 										}
@@ -250,9 +329,9 @@
 			}
 
 			if (selectOpcoes.value == "adicionar") {
-				document.getElementById('add-categorias').style.display = 'block';
+				document.getElementById('add-produtos').style.display = 'block';
 				$(function() {
-					$("#add-categorias").dialog({
+					$("#add-produtos").dialog({
 						modal : true,
 						show : {
 							effect : "clip",
