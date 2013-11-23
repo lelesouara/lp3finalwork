@@ -26,7 +26,7 @@ public class Produto implements Serializable {
 	@Id
 	@Column(name = "produto_id", unique=true, nullable=false)
 	@GeneratedValue(generator = "seq")
-	private Integer perfil_id;
+	private Integer produto_id;
 	
 	@ManyToOne
     @JoinColumn(name = "categoria_id")
@@ -54,12 +54,12 @@ public class Produto implements Serializable {
 		this.valor = valor;
 	}
 
-	public Integer getPerfil_id() {
-		return perfil_id;
+	public Integer getProduto_id() {
+		return produto_id;
 	}
 
-	public void setPerfil_id(Integer perfil_id) {
-		this.perfil_id = perfil_id;
+	public void setProduto_id(Integer produto_id) {
+		this.produto_id = produto_id;
 	}
 
 	public Categoria getCategoria() {

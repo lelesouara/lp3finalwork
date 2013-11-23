@@ -46,6 +46,22 @@ public class CategoriaDao {
 		return false;
 	}
 	
+	public static boolean deletar(Categoria categoria){
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		try {
+			session.beginTransaction();
+			session.delete(categoria);
+			session.getTransaction().commit();
+			return true;
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		}finally{
+			session.close();
+		}
+		return false;
+	}
+	
 	public static List<Categoria> listarCategorias(){
 		List<Categoria> categorias = null;
 		Session session = HibernateUtil.getSessionFactory().openSession();
@@ -55,6 +71,25 @@ public class CategoriaDao {
 			Criteria cr = session.createCriteria(Categoria.class);
 			//cr.add(Restrictions.like("nome", "C%"));
 			//cr.add(Restrictions.lt("habitantes", new Double(80)));
+			cr.addOrder(Order.asc("titulo"));
+			categorias = cr.list();
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		}finally{
+			session.close();
+		}
+		return categorias;
+	}
+	
+	public static List<Categoria> listarCategoriasByTitulo(String titulo){
+		List<Categoria> categorias = null;
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		
+		try {
+			session.beginTransaction();
+			Criteria cr = session.createCriteria(Categoria.class);
+			cr.add(Restrictions.ilike("titulo", "%"+ titulo +"%"));
 			cr.addOrder(Order.asc("titulo"));
 			categorias = cr.list();
 		} catch (HibernateException e) {

@@ -41,7 +41,7 @@ public class CategoriaController extends HttpServlet {
 	}
 
 	private void processaRequest(HttpServletRequest request,
-			HttpServletResponse response) {
+			HttpServletResponse response) throws IOException {
 		String action = request.getParameter("action");
 
 		if (action.equals("redirect")) {
@@ -50,6 +50,69 @@ public class CategoriaController extends HttpServlet {
 
 		} else if (action.equals("listar_admin")) {
 			listarCategoriasAdmin(request, response);
+			
+		}else if(action.equals("deletar_admin")){
+			deletarCategoriaAdmin(request, response);
+			
+		}else if(action.equals("add_admin")){
+			adicionarCategoriaAdmin(request, response);
+			
+		}else if(action.equals("editar_admin")){
+			editarCategoriaAdmin(request, response);
+		}
+	}
+	
+	private void editarCategoriaAdmin(HttpServletRequest request, HttpServletResponse response){
+		String pagina = request.getParameter("pagina");
+		HttpSession session = request.getSession();
+		Usuario userLogged = (Usuario) session.getAttribute("auth_session_usuario");
+		if(userLogged.getAcl() != 1){
+			goToPagina("Template.jsp", "Principal", request, response);
+		}else{
+			if(request.getMethod() == "POST"){
+				String tituloCat = (String) request.getParameter("titulo");
+				Integer categoria_id = Integer.parseInt(request.getParameter("categoria_id"));
+				CategoriaDao.atualizar(new Categoria(categoria_id, tituloCat));
+				request.setAttribute("sysmsg", "Editado com sucesso.");
+			}
+			
+			List<Categoria> categorias = CategoriaDao.listarCategorias();
+			request.setAttribute("categorias", categorias);
+			goToPagina("Template.jsp", pagina, request, response);
+		}
+	}
+	
+	private void adicionarCategoriaAdmin(HttpServletRequest request, HttpServletResponse response){
+		String pagina = request.getParameter("pagina");
+		HttpSession session = request.getSession();
+		Usuario userLogged = (Usuario) session.getAttribute("auth_session_usuario");
+		if(userLogged.getAcl() != 1){
+			goToPagina("Template.jsp", "Principal", request, response);
+		}else{
+			if(request.getMethod() == "POST"){
+				String tituloCat = (String) request.getParameter("titulo");
+				CategoriaDao.salvar(new Categoria(tituloCat));
+				request.setAttribute("sysmsg", "Salvo com sucesso.");
+			}
+			
+			List<Categoria> categorias = CategoriaDao.listarCategorias();
+			request.setAttribute("categorias", categorias);
+			goToPagina("Template.jsp", pagina, request, response);
+		}
+	}
+	
+	private void deletarCategoriaAdmin(HttpServletRequest request, HttpServletResponse response) throws IOException{
+		if(request.getMethod() == "POST"){
+			Integer categoria_id = Integer.parseInt(request.getParameter("id"));
+			
+			if(categoria_id == null)
+				response.getWriter().write("false");
+			else{
+				if(CategoriaDao.deletar(new Categoria(categoria_id, "")))
+					response.getWriter().write("true");
+				else
+					response.getWriter().write("false");
+			}
 		}
 	}
 	
@@ -60,7 +123,15 @@ public class CategoriaController extends HttpServlet {
 		if(userLogged.getAcl() != 1){
 			goToPagina("Template.jsp", "Principal", request, response);
 		}else{
-			List<Categoria> categorias = CategoriaDao.listarCategorias();
+			List<Categoria> categorias = null;
+			
+			if(request.getMethod() == "POST"){
+				String tituloCat = (String) request.getParameter("titulo");
+				categorias = CategoriaDao.listarCategoriasByTitulo(tituloCat);
+			}else{
+				categorias = CategoriaDao.listarCategorias();
+			}
+			
 			request.setAttribute("categorias", categorias);
 			goToPagina("Template.jsp", pagina, request, response);
 		}

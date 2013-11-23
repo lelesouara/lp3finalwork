@@ -27,6 +27,8 @@
 		<property name="show_sql">true</property>
 		<mapping class="projetofinal.lp3.models.Usuario" />
 		<mapping class="projetofinal.lp3.models.Perfil" />
+		<mapping class="projetofinal.lp3.models.Categoria" />
+		<mapping class="projetofinal.lp3.models.Produto" />
 		
 	</session-factory>	
 </hibernate-configuration>
