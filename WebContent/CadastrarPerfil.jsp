@@ -1,3 +1,4 @@
+
 <%@page import="projetofinal.lp3.models.Usuario"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -58,8 +59,6 @@
 		</div>
 		<div class="form-group">
 			<div class="col-sm-offset-2 col-sm-10">
-				<input type='hidden' name='usuario_id'
-					value='<%=usuarioLoginAutenticado.getUsuario_id()%>'>
 				<button type="submit" id='botao' class="btn btn-default">Cadastrar</button>
 			</div>
 		</div>
