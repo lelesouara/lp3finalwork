@@ -31,7 +31,6 @@ public class UsuarioController extends HttpServlet {
 	 */
 	public UsuarioController() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	private void processaRequest(HttpServletRequest request,

@@ -44,6 +44,9 @@ public class Usuario implements Serializable{
 	@Column(name = "validacao")
 	private String validacao;
 	
+	@Column(name = "acl")
+	private int acl = 3;
+	
 	public Usuario(){
 		super();
 	}
@@ -54,12 +57,14 @@ public class Usuario implements Serializable{
 		this.senha = senha;
 		this.ult_acesso = ult_acesso;
 		this.ativo = 0;
+		this.acl = 3;
 	}
 
 	public Usuario(String login, String senha) {
 		super();
 		this.login = login;
 		this.senha = senha;
+		this.acl = 3;
 	}
 
 	public Usuario(Integer usuario_id, String login, String senha, Date ult_acesso) {
@@ -68,6 +73,7 @@ public class Usuario implements Serializable{
 		this.login = login;
 		this.senha = senha;
 		this.ult_acesso = ult_acesso;
+		this.acl = 3;
 	}
 
 	public int getUsuario_id() {
@@ -130,14 +136,12 @@ public class Usuario implements Serializable{
 		this.usuario_id = usuario_id;
 	}
 
-	@Override
-	public String toString() {
-		return "Usuario [usuario_id=" + usuario_id + ", perfil=" + perfil.getNome()
-				+ ", login=" + login + ", senha=" + senha + ", ult_acesso="
-				+ ult_acesso + ", ativo=" + ativo + ", validacao=" + validacao
-				+ "]";
+	public int getAcl() {
+		return acl;
 	}
-	
-	
+
+	public void setAcl(int acl) {
+		this.acl = acl;
+	}
 	
 }

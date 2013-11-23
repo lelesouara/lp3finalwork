@@ -27,19 +27,36 @@
 </p>
 <div class="panel panel-default">
 	<div class="panel-heading">
-		<h3 class="panel-title"> <img src="images/avatar.jpg" alt="avatar" width='25' class="img-thumbnail"> <b><%= usuarioLoginAutenticado.getPerfil().getNome() %></b></h3>
+		<h3 class="panel-title">
+			<span class="glyphicon glyphicon-asterisk"></span> <b><%=usuarioLoginAutenticado.getPerfil().getNome()%></b>
+		</h3>
 	</div>
 	<div class="panel-body">
 		<table class="table">
 			<tr>
-				<td>Email-Alternativo: <%= usuarioLoginAutenticado.getPerfil().getEmailalternativo() %></td>
+				<td>Email-Alternativo: <%=usuarioLoginAutenticado.getPerfil().getEmailalternativo()%></td>
 			</tr>
 			<tr>
-				<td>Telefone: <%= usuarioLoginAutenticado.getPerfil().getTelefone() %></td>
+				<td>Telefone: <%=usuarioLoginAutenticado.getPerfil().getTelefone()%></td>
 			</tr>
 			<tr>
-				<td>Endereço: <%= usuarioLoginAutenticado.getPerfil().getEndereco() %></td>
-			</tr>			
+				<td>Endereço: <%=usuarioLoginAutenticado.getPerfil().getEndereco()%></td>
+			</tr>
 		</table>
 	</div>
+	<%
+		if (usuarioLoginAutenticado.getAcl() == 1) { //Administrador
+	%>
+	<div class="panel-footer">
+		<b>Menu Admin:</b>
+		<div class="btn-group">
+			<a href='CategoriaController?action=listar_admin&pagina=ListarCategorias' type="button" class="btn btn-primary">Categoria</a>
+			<a href='ProdutoController?action=redirect&pagina=ListarProdutos' type="button" class="btn btn-success">Produtos</a>
+			<a href='OrdemservicoController?action=redirect&pagina=ListarOrdemservico' type="button" class="btn btn-warning">Ordem de Serviço</a>
+		</div>
+
+	</div>
+	<%
+		}
+	%>
 </div>

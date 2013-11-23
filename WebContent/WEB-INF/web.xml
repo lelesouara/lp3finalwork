@@ -34,4 +34,14 @@
     <servlet-name>UsuarioController</servlet-name>
     <url-pattern>/UsuarioController</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CategoriaController</display-name>
+    <servlet-name>CategoriaController</servlet-name>
+    <servlet-class>projetofinal.lp3.controllers.CategoriaController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CategoriaController</servlet-name>
+    <url-pattern>/CategoriaController</url-pattern>
+  </servlet-mapping>
 </web-app>
