@@ -52,7 +52,7 @@
 				<label for="titulo" class="col-sm-2 control-label">Titulo</label>
 				<div class="col-sm-10">
 					<input type="text" name='titulo' class="form-control" id="titulo"
-						placeholder="Nome da Categoria" required="required">
+						placeholder="Titulo do produto" required="required">
 				</div>
 			</div>
 			<br> <br>
@@ -70,16 +70,46 @@
 			action="ProdutoController?action=add_admin&pagina=ListarProdutos"
 			method='post'>
 			<div class="form-group">
-				<label for="titulo" class="col-sm-2 control-label">Titulo</label>
+				<label for="categoria" class="col-sm-2 control-label">Categoria</label>
+				<br>
 				<div class="col-sm-10">
-					<input type="text" name='titulo' class="form-control" id="titulo"
+					<select name='categoria' id='categoria_adicionar'>
+						<%
+							List<Categoria> categoriasAdd = (ArrayList<Categoria>) request.getAttribute("categorias");
+							for(Categoria auxCat : categoriasAdd){
+						%>
+						<option value='<%= auxCat.getCategoria_id() %>'> <%=auxCat.getTitulo() %> </option>
+						<% } %>
+					</select>
+				</div>
+			</div>
+			<br>
+			<div class="form-group">
+				<label for="titulo-adicionar" class="col-sm-2 control-label">Titulo</label>
+				<div class="col-sm-10">
+					<input type="text" name='titulo' class="form-control" id="titulo-adicionar"
 						placeholder="Nome da Categoria" required="required">
 				</div>
 			</div>
-			<br> <br>
+			<br>
+			<div class="form-group">
+				<label for="valor-adicionar" class="col-sm-2 control-label">Valor</label>
+				<div class="col-sm-10">
+					<input type="text" name='valor' class="form-control" id="valor-adicionar" 
+					required="required">
+				</div>
+			</div>
+			<br>
+			<div class="form-group">
+				<label for="descricao-adicionar" class="col-sm-2 control-label">Desc</label>
+				<div class="col-sm-10">
+					<textarea rows="3" cols="20" name='descricao' id='descricao-adicionar'></textarea>
+				</div>
+			</div>
+			<br>
 			<div class="form-group">
 				<div class="col-sm-offset-2 col-sm-10">
-					<button type="submit" id='botao' class="btn btn-default">Adicionar</button>
+					<button type="submit" id='botao-adicionar' class="btn btn-default">Adicionar</button>
 				</div>
 			</div>
 		</form>

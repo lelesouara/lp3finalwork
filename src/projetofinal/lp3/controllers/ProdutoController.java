@@ -79,7 +79,6 @@ public class ProdutoController extends HttpServlet {
 				Integer produto_id = Integer.parseInt(request.getParameter("produto_id"));
 				
 				boolean save = ProdutoDao.atualizar(new Produto(produto_id, new Categoria(categoria_id, ""), titulo, descricao, valor));
-				System.out.println(save);
 				request.setAttribute("sysmsg", "Editado com sucesso.");
 			}
 			
@@ -100,25 +99,29 @@ public class ProdutoController extends HttpServlet {
 			goToPagina("Template.jsp", "Principal", request, response);
 		}else{
 			if(request.getMethod() == "POST"){
-				String tituloCat = (String) request.getParameter("titulo");
-				CategoriaDao.salvar(new Categoria(tituloCat));
+				String titulo = (String) request.getParameter("titulo");
+				String descricao = (String) request.getParameter("descricao");
+				Double valor = Double.parseDouble(request.getParameter("valor"));
+				Integer categoria_id = Integer.parseInt(request.getParameter("categoria"));
+				boolean update = ProdutoDao.salvar(new Produto(new Categoria(categoria_id, ""),  titulo, descricao, valor));
 				request.setAttribute("sysmsg", "Salvo com sucesso.");
 			}
-			
+			List<Produto> produtos = ProdutoDao.listarProdutos();
 			List<Categoria> categorias = CategoriaDao.listarCategorias();
 			request.setAttribute("categorias", categorias);
+			request.setAttribute("produtos", produtos);
 			goToPagina("Template.jsp", pagina, request, response);
 		}
 	}
 	
 	private void deletarProdutoAdmin(HttpServletRequest request, HttpServletResponse response) throws IOException{
 		if(request.getMethod() == "POST"){
-			Integer categoria_id = Integer.parseInt(request.getParameter("id"));
+			Integer produto_id = Integer.parseInt(request.getParameter("id"));
 			
-			if(categoria_id == null)
+			if(produto_id == null)
 				response.getWriter().write("false");
 			else{
-				if(CategoriaDao.deletar(new Categoria(categoria_id, "")))
+				if(ProdutoDao.deletar(new Produto(produto_id, "")))
 					response.getWriter().write("true");
 				else
 					response.getWriter().write("false");

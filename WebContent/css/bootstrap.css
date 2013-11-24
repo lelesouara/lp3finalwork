@@ -10,6 +10,16 @@
 
 /*! normalize.css v2.1.3 | MIT License | git.io/normalize */
 
+.floatItem{
+	float:left;
+	border:1px solid #d1d1d1;
+	border-radius:5px;
+	width:280px;
+	height:450px;
+	padding: 10px;
+	margin: 35px;
+}
+
 article,
 aside,
 details,

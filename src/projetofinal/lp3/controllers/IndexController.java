@@ -1,12 +1,18 @@
 package projetofinal.lp3.controllers;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import projetofinal.lp3.dao.CategoriaDao;
+import projetofinal.lp3.dao.ProdutoDao;
+import projetofinal.lp3.models.Categoria;
+import projetofinal.lp3.models.Produto;
 
 /**
  * Servlet implementation class IndexController
@@ -29,7 +35,22 @@ public class IndexController extends HttpServlet {
 		if (action.equals("redirect")) {
 			goToPagina("Template.jsp", request.getParameter("pagina"), request,
 					response);
+			
+		}else if(action.equals("index")){
+			listar_index(request, response);
 		}
+	}
+	
+	private void listar_index(HttpServletRequest request, HttpServletResponse response){
+		String pagina = request.getParameter("pagina");
+		
+		List<Categoria> categorias = CategoriaDao.listarCategorias();
+		List<Produto> produtos = ProdutoDao.listarProdutos();
+		
+		request.setAttribute("categorias", categorias);
+		request.setAttribute("produtos", produtos);
+		goToPagina("Template.jsp", pagina, request, response);
+		
 	}
 
 	private void goToPagina(String template, String pagina,

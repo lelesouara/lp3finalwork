@@ -45,6 +45,12 @@ public class Produto implements Serializable {
 		super();
 	}
 	
+	public Produto(Integer produto_id, String titulo){
+		super();
+		this.produto_id 	= produto_id;
+		this.titulo			= titulo; 		
+	}
+	
 	public Produto(Categoria categoria, String titulo, String descricao,
 			Double valor) {
 		super();

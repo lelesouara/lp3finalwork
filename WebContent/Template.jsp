@@ -42,13 +42,20 @@
 		<div class="header">
 			<ul class="nav nav-pills pull-right">
 				<li class="active"><a
-					href="IndexController?action=redirect&pagina=Principal">Inicio</a></li>
+					href="IndexController?action=index&pagina=Principal">Inicio</a></li>
 				<li><a
 					href="UsuarioController?action=redirect&pagina=CadastrarUsuario">Cadastro</a></li>
+				<%
+					Usuario usuarioLoginAutenticado2 = (Usuario) session.getAttribute("auth_session_usuario");
+					if (usuarioLoginAutenticado2 == null) {
+				%>
 				<li><a
 					href="UsuarioController?action=redirect&pagina=LogarUsuario">Logar</a></li>
+				<%
+					}
+				%>	
 				<li><a
-					href="CarrinhoController?action=listar_carrinho&pagina=ListarCarrinho">Carrinho</a></li>
+					href="OrdemservicoController?action=listar&pagina=ListarCarrinho">Carrinho</a></li>
 				<%
 					Usuario usuarioLoginAutenticado = (Usuario) session.getAttribute("auth_session_usuario");
 					if (usuarioLoginAutenticado != null) {
@@ -82,7 +89,7 @@
 			<%
 				String pagina = (String) request.getAttribute("pagina");
 				if (pagina == null)
-					pagina = (String) "Principal.jsp";
+					pagina = (String) "Intro.jsp";
 				else
 					pagina = pagina + ".jsp";
 			%>

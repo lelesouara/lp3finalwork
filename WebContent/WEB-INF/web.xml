@@ -54,4 +54,19 @@
     <servlet-name>ProdutoController</servlet-name>
     <url-pattern>/ProdutoController</url-pattern>
   </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>CarrinhoController</servlet-name>
+    <url-pattern>/CarrinhoController</url-pattern>
+  </servlet-mapping>
+    <servlet>
+    <description></description>
+    <display-name>CarrinhoController</display-name>
+    <servlet-name>CarrinhoController</servlet-name>
+    <servlet-class>projetofinal.lp3.controllers.CarrinhoController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CarrinhoController</servlet-name>
+    <url-pattern>/CarrinhoController</url-pattern>
+  </servlet-mapping>
 </web-app>

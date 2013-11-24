@@ -48,6 +48,7 @@
 		if (usuarioLoginAutenticado.getAcl() == 1) { //Administrador
 	%>
 	<div class="panel-footer">
+		<span class='glyphicon glyphicon-tasks'></span>
 		<b>Menu Admin:</b>
 		<div class="btn-group">
 			<a href='CategoriaController?action=listar_admin&pagina=ListarCategorias' type="button" class="btn btn-primary">Categoria</a>
