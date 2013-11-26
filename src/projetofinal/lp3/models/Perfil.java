@@ -1,11 +1,13 @@
 package projetofinal.lp3.models;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.SequenceGenerator;
@@ -31,6 +33,9 @@ public class Perfil implements Serializable {
     @PrimaryKeyJoinColumn
     private Usuario usuario_id;
 	
+	@OneToMany(mappedBy = "perfil")
+	private List<Ordemservico> os;
+	
 	@Column(name = "nome")
 	private String nome;
 	
@@ -55,6 +60,14 @@ public class Perfil implements Serializable {
 		this.telefone = telefone;
 		this.emailalternativo = emailalternativo;
 		this.endereco = endereco;
+	}
+	
+	public List<Ordemservico> getOs() {
+		return os;
+	}
+
+	public void setOs(List<Ordemservico> os) {
+		this.os = os;
 	}
 
 	public Integer getPerfil_id() {

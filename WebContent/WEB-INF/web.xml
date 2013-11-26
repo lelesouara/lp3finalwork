@@ -44,7 +44,7 @@
     <servlet-name>CategoriaController</servlet-name>
     <url-pattern>/CategoriaController</url-pattern>
   </servlet-mapping>
-    <servlet>
+  <servlet>
     <description></description>
     <display-name>ProdutoController</display-name>
     <servlet-name>ProdutoController</servlet-name>
@@ -54,19 +54,14 @@
     <servlet-name>ProdutoController</servlet-name>
     <url-pattern>/ProdutoController</url-pattern>
   </servlet-mapping>
-  
-  <servlet-mapping>
-    <servlet-name>CarrinhoController</servlet-name>
-    <url-pattern>/CarrinhoController</url-pattern>
-  </servlet-mapping>
-    <servlet>
+  <servlet>
     <description></description>
-    <display-name>CarrinhoController</display-name>
-    <servlet-name>CarrinhoController</servlet-name>
-    <servlet-class>projetofinal.lp3.controllers.CarrinhoController</servlet-class>
+    <display-name>OrdemservicoController</display-name>
+    <servlet-name>OrdemservicoController</servlet-name>
+    <servlet-class>projetofinal.lp3.controllers.OrdemservicoController</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>CarrinhoController</servlet-name>
-    <url-pattern>/CarrinhoController</url-pattern>
+    <servlet-name>OrdemservicoController</servlet-name>
+    <url-pattern>/OrdemservicoController</url-pattern>
   </servlet-mapping>
 </web-app>

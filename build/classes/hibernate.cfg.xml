@@ -19,7 +19,7 @@
 		-->
 		
 		<property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
-		<property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/projetofinallpiii</property>
+		<property name="hibernate.connection.url">jdbc:postgresql://127.0.0.1:5432/projetofinallpiii</property>
 		<property name="hibernate.connection.username">postgres</property>
 		<property name="hibernate.connection.password">admin</property>
 		<property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
@@ -29,6 +29,8 @@
 		<mapping class="projetofinal.lp3.models.Perfil" />
 		<mapping class="projetofinal.lp3.models.Categoria" />
 		<mapping class="projetofinal.lp3.models.Produto" />
+		<mapping class="projetofinal.lp3.models.Ordemservico" />
+		<mapping class="projetofinal.lp3.models.Itemordemservico" />
 		
 	</session-factory>	
 </hibernate-configuration>

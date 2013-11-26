@@ -51,7 +51,7 @@ public class UsuarioController extends HttpServlet {
 		} else if (action.equals("logout")) {
 			HttpSession session = request.getSession();
 			session.invalidate();
-			goToPagina("Template.jsp", "Principal", request, response);
+			goToPagina("Template.jsp", "Intro", request, response);
 
 		} else if (action.equals("validacao")) {
 			confirmarCadastro(request, response);
