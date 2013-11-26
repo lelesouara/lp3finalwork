@@ -35,18 +35,30 @@
 			<td></td>
 		</tr>
 		<%
+			Double totalCompra = 0.0;
 			for(Itemordemservico aux : itensCarrinho){
+				totalCompra += (aux.getProduto().getValor()*aux.getQuantidade());
 		%>
 		<tr>
 			<td></td>
 			<td><%= aux.getProduto().getTitulo() %></td>
-			<td><%= aux.getQuantidade() %></td>
+			<td><a href='#'><%= aux.getQuantidade() %></a></td>
 			<td><%= (aux.getQuantidade()*aux.getProduto().getValor()) %></td>
-			<td></td>
+			<td><a href='OrdemservicoController?action=remover&pagina=ListarCarrinho&produto=<%= aux.getProduto().getProduto_id() %>' class='btn btn-danger'> <span class='glyphicon glyphicon-remove'></span> Remover </a></td>
 		</tr>
 		<% } %>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>Total da Compra:</td>
+			<td><b><%= totalCompra %></b></td>
+		</tr>
 	</table>
 	<% } } %>
+	<a href='OrdemservicoController?action=limpar&pagina=ListarCarrinho' class='btn btn-default'> <span class='glyphicon glyphicon-trash'></span> Limpar Carrinho </a>
+	<a href='IndexController?action=index&pagina=Principal' class='btn btn-info'> <span class='glyphicon glyphicon-share-alt'></span> Continuar comprando </a>
+	<a href='OrdemservicoController?action=finalizar&pagina=OSUsuario' class='btn btn-success'> <span class='glyphicon glyphicon-credit-card'></span> Finalizar Compra </a>
 </div>
 
 <!-- Clear HACK -->

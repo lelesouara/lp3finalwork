@@ -53,14 +53,39 @@ public class OrdemservicoController extends HttpServlet {
 		} else if (action.equals("listar")) {
 			listarCarrinho(request, response);
 			
-		}else if(action.equals("deletar_admin")){
+		}else if(action.equals("remover")){
+			removerItemCarrinho(request, response);
 			
 		}else if(action.equals("add")){
 			adicionarCarrinho(request, response);
 			
-		}else if(action.equals("editar_admin")){
-			
+		}else if(action.equals("limpar")){
+			limparCarrinho(request, response);
 		}
+	}
+	
+	private void limparCarrinho(HttpServletRequest request, HttpServletResponse response){
+		HttpSession session = request.getSession();
+		verificaExistenciaCarrinho(session);
+		
+		session.removeAttribute("carrinho_compra");
+		goToPagina("Template.jsp", request.getParameter("pagina"), request, response);
+	}
+	
+	private void removerItemCarrinho(HttpServletRequest request, HttpServletResponse response){
+		HttpSession session = request.getSession();
+		verificaExistenciaCarrinho(session);
+		Integer produto_id = Integer.parseInt(request.getParameter("produto"));
+		
+		List<Itemordemservico> itens = (ArrayList<Itemordemservico>) session.getAttribute("carrinho_compra");
+		
+		for(int i=0; i< itens.size(); i++){
+			Itemordemservico aux = itens.get(i);
+			if(aux.getProduto().getProduto_id() == produto_id){
+				itens.remove(aux);
+			}
+		}
+		goToPagina("Template.jsp", request.getParameter("pagina"), request, response);
 	}
 	
 	private void adicionarCarrinho(HttpServletRequest request, HttpServletResponse response){

@@ -50,7 +50,7 @@ public class UsuarioController extends HttpServlet {
 
 		} else if (action.equals("logout")) {
 			HttpSession session = request.getSession();
-			session.invalidate();
+			session.removeAttribute("auth_session_usuario");
 			goToPagina("Template.jsp", "Intro", request, response);
 
 		} else if (action.equals("validacao")) {
