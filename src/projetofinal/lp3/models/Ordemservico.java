@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -91,5 +92,12 @@ public class Ordemservico implements Serializable {
 	public void setStatusos(String statusos) {
 		this.statusos = statusos;
 	}
-	
+
+	public List<Itemordemservico> getProdutos() {
+		return produtos;
+	}
+
+	public void setProdutos(List<Itemordemservico> produtos) {
+		this.produtos = produtos;
+	}
 }

@@ -12,6 +12,12 @@
 	}
 %>
 
+<% 
+	String msg = (String) request.getAttribute("sys_mensagem");
+	if(msg != null)
+		out.write("<div class='alert alert-info'>"+msg+"</div>");
+%>
+
 <div class="page-header">
 	<h1>
 		Usuário Autenticado <small>Painel do Usuário</small>
@@ -19,10 +25,11 @@
 </div>
 <p>
 	<%
-		if (usuarioLoginAutenticado.getPerfil() == null)
+		if (usuarioLoginAutenticado.getPerfil() == null){
 			out.write("<div class='alert alert-danger'>Bem vindo (a) "
 					+ usuarioLoginAutenticado.getLogin()
 					+ " - <b> você deve criar um perfil. </b> <a href='PerfilController?action=redirect&pagina=CadastrarPerfil' class='btn btn-primary'> Criar Perfil </a> </div>");
+		}else{
 	%>
 </p>
 <div class="panel panel-default">
@@ -60,4 +67,14 @@
 	<%
 		}
 	%>
+	
+	<div class="panel-footer">
+		<span class='glyphicon glyphicon-tasks'></span>
+		<b>Menu:</b>
+		<div class="btn-group">
+			<a href='OrdemservicoController?action=listarOS&pagina=ListarOrdemservico' type="button" class="btn btn-warning">Minhas Compras</a>
+		</div>
+
+	</div>
 </div>
+<% } %>
