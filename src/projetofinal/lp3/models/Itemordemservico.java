@@ -55,6 +55,13 @@ public class Itemordemservico implements Serializable {
 		this.produto = produto;
 		this.quantidade = quantidade;
 	}
+	
+	public Itemordemservico(Produto produto,
+			Integer quantidade) {
+		super();
+		this.produto = produto;
+		this.quantidade = quantidade;
+	}
 
 	public Integer getItemordemservico_id() {
 		return itemordemservico_id;

@@ -18,7 +18,7 @@
 	<div style='font-family: monospace; font-size: small; height: 70px; overflow: hidden'> <%= aux.getDescricao() %> </div>
 	<div style='font-weight: bold; height: 25px;'> Somente R$ <%= aux.getValor() %> </div>
 	<div> 
-		<a class='btn btn-primary' href='CarrinhoController?action=add&pagina=ListarCarrinho'> <span class="glyphicon glyphicon-shopping-cart"></span> ADICIONAR AO CARRINHO </a>
+		<a class='btn btn-primary' href='OrdemservicoController?action=add&pagina=ListarCarrinho&produto=<%= aux.getProduto_id() %>'> <span class="glyphicon glyphicon-shopping-cart"></span> ADICIONAR AO CARRINHO </a>
 	</div>
 </div>
 <% } %>

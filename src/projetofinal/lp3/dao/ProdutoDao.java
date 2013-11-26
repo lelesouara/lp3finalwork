@@ -100,4 +100,23 @@ public class ProdutoDao {
 		return produtos;
 	}
 	
+	public static List<Produto> listarProdutosById(Integer id){
+		List<Produto> produtos = null;
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		
+		try {
+			session.beginTransaction();
+			Criteria cr = session.createCriteria(Produto.class);
+			cr.add(Restrictions.eq("produto_id", id));
+			cr.addOrder(Order.asc("titulo"));
+			produtos = cr.list();
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		}finally{
+			session.close();
+		}
+		return produtos;
+	}
+	
 }

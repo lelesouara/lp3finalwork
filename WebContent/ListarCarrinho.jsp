@@ -29,11 +29,22 @@
 	<table class="table">
 		<tr>
 			<td></td>
-			<td>Id</td>
-			<td>Categoria</td>
 			<td>Titulo</td>
+			<td>Quantidade</td>
+			<td>Subtotal</td>
 			<td></td>
 		</tr>
+		<%
+			for(Itemordemservico aux : itensCarrinho){
+		%>
+		<tr>
+			<td></td>
+			<td><%= aux.getProduto().getTitulo() %></td>
+			<td><%= aux.getQuantidade() %></td>
+			<td><%= (aux.getQuantidade()*aux.getProduto().getValor()) %></td>
+			<td></td>
+		</tr>
+		<% } %>
 	</table>
 	<% } } %>
 </div>
