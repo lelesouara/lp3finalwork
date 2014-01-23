@@ -1,3 +1,5 @@
+<!-- Pagina implementando JSTL -->
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@page import="projetofinal.lp3.models.Itemordemservico"%>
 <%@page import="projetofinal.lp3.models.Ordemservico"%>
@@ -9,27 +11,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<%
-	Usuario usuarioLoginAutenticado = (Usuario) session
-	.getAttribute("auth_session_usuario");
-
-	if (usuarioLoginAutenticado == null) {
-		out.write("<div class='alert alert-danger'> Área restrita, realize login. &nbsp; <a href='UsuarioController?action=redirect&pagina=LogarUsuario'>Clique Aqui</a></div>");
-		return;
-	}
-%>
-
 <div class="page-header">
 	<h1>
 		Itens OS <small>Itens OS</small>
 	</h1>
 </div>
 
-<%
-	String msg = (String) request.getAttribute("sys_mensagem");
-	if (msg != null)
-		out.write("<div class='alert alert-info'>" + msg + "</div>");
-%>
+<c:set var="usuarioLoginAutenticado" value="${sessionScope.auth_session_usuario}"></c:set>
+
+
+<c:set var="sys_mensagem" scope="request" value="${requestScope.sys_mensagem}"/>
+<c:if test="${not empty sys_mensagem}">
+	<div class='alert alert-info'>
+		<c:out value="${sys_mensagem}"></c:out><c:out value="1111111111"></c:out>
+	</div>
+</c:if>
 
 <div style='width: 700px'>
 		<table class="table">

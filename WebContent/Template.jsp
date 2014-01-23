@@ -1,7 +1,5 @@
 <%@page import="projetofinal.lp3.models.Usuario"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -37,7 +35,6 @@
 </head>
 
 <body>
-
 	<div class="container">
 		<div class="header">
 			<ul class="nav nav-pills pull-right">
@@ -94,7 +91,7 @@
 					pagina = pagina + ".jsp";
 			%>
 
-			<jsp:include page="<%=pagina%>"></jsp:include>
+			<jsp:include page="<%=pagina%>"/>
 		</div>
 
 		<br>

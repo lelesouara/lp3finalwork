@@ -90,6 +90,7 @@ public class OrdemservicoController extends HttpServlet {
 		List<Itemordemservico> itensOs = ItemordemservicoDao.listarItensOSByOS(osObj.get(0));
 		
 		request.setAttribute("itensOs", itensOs);
+		request.setAttribute("sys_mensagem", "Pedido realizado com sucesso, aguarde contato.");
 		goToPagina("Template.jsp", request.getParameter("pagina"), request, response);
 	}
 	
