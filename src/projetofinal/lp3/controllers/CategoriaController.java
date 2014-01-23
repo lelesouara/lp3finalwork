@@ -19,15 +19,15 @@ import projetofinal.lp3.models.Usuario;
  */
 public class CategoriaController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public CategoriaController() {
-        super();
-    }
-    
-    private void goToPagina(String template, String pagina,
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public CategoriaController() {
+		super();
+	}
+
+	private void goToPagina(String template, String pagina,
 			HttpServletRequest request, HttpServletResponse response) {
 		RequestDispatcher rd = null;
 		rd = request.getRequestDispatcher(template);
@@ -50,104 +50,116 @@ public class CategoriaController extends HttpServlet {
 
 		} else if (action.equals("listar_admin")) {
 			listarCategoriasAdmin(request, response);
-			
-		}else if(action.equals("deletar_admin")){
+
+		} else if (action.equals("deletar_admin")) {
 			deletarCategoriaAdmin(request, response);
-			
-		}else if(action.equals("add_admin")){
+
+		} else if (action.equals("add_admin")) {
 			adicionarCategoriaAdmin(request, response);
-			
-		}else if(action.equals("editar_admin")){
+
+		} else if (action.equals("editar_admin")) {
 			editarCategoriaAdmin(request, response);
 		}
 	}
-	
-	private void editarCategoriaAdmin(HttpServletRequest request, HttpServletResponse response){
+
+	private void editarCategoriaAdmin(HttpServletRequest request,
+			HttpServletResponse response) {
 		String pagina = request.getParameter("pagina");
 		HttpSession session = request.getSession();
-		Usuario userLogged = (Usuario) session.getAttribute("auth_session_usuario");
-		if(userLogged.getAcl() != 1){
+		Usuario userLogged = (Usuario) session
+				.getAttribute("auth_session_usuario");
+		if (userLogged.getAcl() != 1) {
 			goToPagina("Template.jsp", "Principal", request, response);
-		}else{
-			if(request.getMethod() == "POST"){
+		} else {
+			if (request.getMethod() == "POST") {
 				String tituloCat = (String) request.getParameter("titulo");
-				Integer categoria_id = Integer.parseInt(request.getParameter("categoria_id"));
+				Integer categoria_id = Integer.parseInt(request
+						.getParameter("categoria_id"));
 				CategoriaDao.atualizar(new Categoria(categoria_id, tituloCat));
 				request.setAttribute("sysmsg", "Editado com sucesso.");
 			}
-			
+
 			List<Categoria> categorias = CategoriaDao.listarCategorias();
 			request.setAttribute("categorias", categorias);
 			goToPagina("Template.jsp", pagina, request, response);
 		}
 	}
-	
-	private void adicionarCategoriaAdmin(HttpServletRequest request, HttpServletResponse response){
+
+	private void adicionarCategoriaAdmin(HttpServletRequest request,
+			HttpServletResponse response) {
 		String pagina = request.getParameter("pagina");
 		HttpSession session = request.getSession();
-		Usuario userLogged = (Usuario) session.getAttribute("auth_session_usuario");
-		if(userLogged.getAcl() != 1){
+		Usuario userLogged = (Usuario) session
+				.getAttribute("auth_session_usuario");
+		if (userLogged.getAcl() != 1) {
 			goToPagina("Template.jsp", "Principal", request, response);
-		}else{
-			if(request.getMethod() == "POST"){
+		} else {
+			if (request.getMethod() == "POST") {
 				String tituloCat = (String) request.getParameter("titulo");
 				CategoriaDao.salvar(new Categoria(tituloCat));
 				request.setAttribute("sysmsg", "Salvo com sucesso.");
 			}
-			
+
 			List<Categoria> categorias = CategoriaDao.listarCategorias();
 			request.setAttribute("categorias", categorias);
 			goToPagina("Template.jsp", pagina, request, response);
 		}
 	}
-	
-	private void deletarCategoriaAdmin(HttpServletRequest request, HttpServletResponse response) throws IOException{
-		if(request.getMethod() == "POST"){
+
+	private void deletarCategoriaAdmin(HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+		if (request.getMethod() == "POST") {
 			Integer categoria_id = Integer.parseInt(request.getParameter("id"));
-			
-			if(categoria_id == null)
+
+			if (categoria_id == null)
 				response.getWriter().write("false");
-			else{
-				if(CategoriaDao.deletar(new Categoria(categoria_id, "")))
+			else {
+				if (CategoriaDao.deletar(new Categoria(categoria_id, "")))
 					response.getWriter().write("true");
 				else
 					response.getWriter().write("false");
 			}
 		}
 	}
-	
-	private void listarCategoriasAdmin(HttpServletRequest request, HttpServletResponse response){
+
+	private void listarCategoriasAdmin(HttpServletRequest request,
+			HttpServletResponse response) {
 		String pagina = request.getParameter("pagina");
 		HttpSession session = request.getSession();
-		Usuario userLogged = (Usuario) session.getAttribute("auth_session_usuario");
-		if(userLogged.getAcl() != 1){
+		Usuario userLogged = (Usuario) session
+				.getAttribute("auth_session_usuario");
+		if (userLogged.getAcl() != 1) {
 			goToPagina("Template.jsp", "Principal", request, response);
-		}else{
+		} else {
 			List<Categoria> categorias = null;
-			
-			if(request.getMethod() == "POST"){
+
+			if (request.getMethod() == "POST") {
 				String tituloCat = (String) request.getParameter("titulo");
 				categorias = CategoriaDao.listarCategoriasByTitulo(tituloCat);
-			}else{
+			} else {
 				categorias = CategoriaDao.listarCategorias();
 			}
-			
+
 			request.setAttribute("categorias", categorias);
 			goToPagina("Template.jsp", pagina, request, response);
 		}
 	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		processaRequest(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		processaRequest(request, response);
 	}
 

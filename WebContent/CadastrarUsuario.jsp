@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <div class="page-header">
-  <h1>Usuários <small>Cadastro de um novo usuário</small></h1>
+  <h1><fmt:message key="title.page"/> <small><fmt:message key="slogan.page"/></small></h1>
 </div>
 
 <% 
@@ -14,7 +15,7 @@
 <div style='width:500px'>
 	<form class="form-horizontal" role="form" action="UsuarioController?action=new_user" method="post">
 		<div class="form-group">
-			<label for="login" class="col-sm-2 control-label">Login</label>
+			<label for="login" class="col-sm-2 control-label"><fmt:message key="campo.login"/></label>
 			<div class="col-sm-10">
 				<input type="text" name='login' class="form-control" id="login"
 					placeholder="Nome de Usuário" required="required" onfocus="mostrar_botao()" onblur="verificar_user_name()">
@@ -22,14 +23,14 @@
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="senha" class="col-sm-2 control-label">Senha</label>
+			<label for="senha" class="col-sm-2 control-label"><fmt:message key="campo.senha"/></label>
 			<div class="col-sm-10">
 				<input type="password" name='senha' class="form-control" id="senha"
 					placeholder="Chave para acesso" required="required">
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="resenha" class="col-sm-2 control-label">Re-Senha</label>
+			<label for="resenha" class="col-sm-2 control-label"><fmt:message key="campo.resenha"/></label>
 			<div class="col-sm-10">
 				<input type="password" name='resenha' class="form-control" id="resenha"
 					placeholder="Repita a chave para acesso" required="required">
@@ -37,7 +38,7 @@
 		</div>
 		<div class="form-group">
 			<div class="col-sm-offset-2 col-sm-10">
-				<button type="submit" id='botao' class="btn btn-default">Cadastrar</button>
+				<button type="submit" id='botao' class="btn btn-default"><fmt:message key="btn.cadastrar"/></button>
 			</div>
 		</div>
 	</form>

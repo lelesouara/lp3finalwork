@@ -18,12 +18,17 @@
 </div>
 
 <c:set var="usuarioLoginAutenticado" value="${sessionScope.auth_session_usuario}"></c:set>
-
+<c:if test="${empty usuarioLoginAutenticado}">
+	<div class='alert alert-warning'>
+		Você nao tem permissão para acessar esta página!
+		<c:redirect url="Principal.jsp"/>
+	</div>
+</c:if>
 
 <c:set var="sys_mensagem" scope="request" value="${requestScope.sys_mensagem}"/>
 <c:if test="${not empty sys_mensagem}">
 	<div class='alert alert-info'>
-		<c:out value="${sys_mensagem}"></c:out><c:out value="1111111111"></c:out>
+		<c:out value="${sys_mensagem}"></c:out>
 	</div>
 </c:if>
 
@@ -33,20 +38,18 @@
 			<td>Id</td>
 			<td>Titulo</td>
 			<td>Quantidade</td>
+			<td>Total </td>
 		</tr>
-		<%
-			List<Itemordemservico> ios = (List<Itemordemservico>) request
-					.getAttribute("itensOs");
-			for (Itemordemservico aux : ios) {
-		%>
-		<tr>
-			<td><%=aux.getItemordemservico_id()%></td>
-			<td><%=aux.getProduto().getTitulo()%></td>
-			<td><%=aux.getQuantidade()%></td>
-		</tr>
-		<%
-			}
-		%>
+		
+		<c:set value="${requestScope.itensOs}" var="ios"/>
+		<c:forEach var="aux" items="${ios}">
+			<tr>
+				<td> <c:out value='${ aux.getItemordemservico_id() }'></c:out> </td>
+				<td> <c:out value='${ aux.getProduto().getTitulo() }'></c:out> </td>
+				<td> <c:out value='${ aux.getQuantidade() }'></c:out> </td>
+				<td> Valor Unit. (<c:out value='${aux.getProduto().getValor()}' />), Total: <c:out value='${ aux.getProduto().getValor() * aux.getQuantidade() }'></c:out> </td>
+			</tr>
+		</c:forEach>
 	</table>
 </div>
 

@@ -326,13 +326,6 @@ ALTER TABLE ONLY usuarios ALTER COLUMN usuario_id SET DEFAULT nextval('usuarios_
 -- Data for Name: categorias; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY categorias (categoria_id, titulo) FROM stdin;
-52	Informatica
-53	Telefonia
-54	Eletro
-55	Escritorio
-\.
-
 
 --
 -- TOC entry 2043 (class 0 OID 0)
@@ -349,8 +342,6 @@ SELECT pg_catalog.setval('categorias_categoria_id_seq', 55, true);
 -- Data for Name: itemordemservicos; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY itemordemservicos (itemordemservico_id, ordemservico_id, produto_id, quantidade) FROM stdin;
-\.
 
 
 --
@@ -368,8 +359,6 @@ SELECT pg_catalog.setval('itemordemservicos_itemordemservico_id_seq', 16, true);
 -- Data for Name: ordemservicos; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY ordemservicos (ordemservico_id, perfil_id, datacompra, statusos) FROM stdin;
-\.
 
 
 --
@@ -387,10 +376,6 @@ SELECT pg_catalog.setval('ordemservicos_ordemservico_id_seq', 10, true);
 -- Data for Name: perfils; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY perfils (perfil_id, nome, telefone, emailalternativo, endereco) FROM stdin;
-7	Leandro Souza	(67) 1234-5678	leandro.web@live.com	rua dos ipes, 615
-8	Administrador do Sistema	000000000	adm@adm.com	rua dos ADM
-\.
 
 
 --
@@ -408,10 +393,6 @@ SELECT pg_catalog.setval('perfils_perfil_id_seq', 1, false);
 -- Data for Name: produtos; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY produtos (produto_id, titulo, descricao, valor, categoria_id) FROM stdin;
-8	NoteBook Accer	notebook com 2gb de ram, 500 gb de hd sata 3, processador core 2 duo de 3.2 ghz.	1000.00	52
-\.
-
 
 --
 -- TOC entry 2047 (class 0 OID 0)
@@ -428,10 +409,7 @@ SELECT pg_catalog.setval('produtos_produto_id_seq', 8, true);
 -- Data for Name: usuarios; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY usuarios (usuario_id, login, senha, ult_acesso, ativo, validacao, acl) FROM stdin;
-7	leandro.souara.web@gmail.com	123	2013-11-26	1	AA3FFBC7XFEE9X49ABX8D27X7F0A9A317AF01385509299625	3
-8	admin@admin	123	2013-11-26	1	E7EC992FX305FX4D55X9F77XA377B20BCBC01385509753978	1
-\.
+
 
 
 --
