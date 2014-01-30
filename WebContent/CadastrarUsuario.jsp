@@ -37,6 +37,15 @@
 			</div>
 		</div>
 		<div class="form-group">
+			<label for="language" class="col-sm-2 control-label"><fmt:message key="select.idioma"/></label>
+			<div class="col-sm-10">
+				<select name='idioma' class="form-control" id="language">
+					<option selected='selected' value='pt_BR'> Português - BR </option>
+					<option value='en_US'> English - US </option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
 			<div class="col-sm-offset-2 col-sm-10">
 				<button type="submit" id='botao' class="btn btn-default"><fmt:message key="btn.cadastrar"/></button>
 			</div>

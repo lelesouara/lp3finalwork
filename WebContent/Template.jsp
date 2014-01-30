@@ -38,6 +38,8 @@
 	<div class="container">
 		<div class="header">
 			<ul class="nav nav-pills pull-right">
+				<li><a href="MudaLinguaServlet?lang=pt&country=BR"><img src='images/flagBR.png'></a></li>
+				<li><a href="MudaLinguaServlet?lang=en&country=US"><img src='images/flagUS.png'></a></li>
 				<li class="active"><a
 					href="IndexController?action=index&pagina=Principal">Inicio</a></li>
 				<li><a

@@ -239,6 +239,7 @@ CREATE TABLE usuarios (
     usuario_id bigint NOT NULL,
     login character varying(100) NOT NULL,
     senha character varying(100) NOT NULL,
+    idioma character varying(100) NOT NULL,
     ult_acesso date,
     ativo integer DEFAULT 0,
     validacao text,

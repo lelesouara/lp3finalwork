@@ -159,6 +159,7 @@ public class UsuarioController extends HttpServlet {
 		String login = request.getParameter("login");
 		String senha = request.getParameter("senha");
 		String resenha = request.getParameter("resenha");
+		String idioma  = request.getParameter("idioma");
 
 		if (!senha.equals(resenha) && !senha.equals("") && !resenha.equals("")) {
 			request.setAttribute("sys_mensagem",
@@ -169,7 +170,7 @@ public class UsuarioController extends HttpServlet {
 
 			// Possivel cadastrar senhas iguais.
 			Usuario user = new Usuario(login, senha, new Date(
-					System.currentTimeMillis()));
+					System.currentTimeMillis()), idioma);
 			user.setValidacao(ManipulateString.generateString());
 
 			List<Usuario> exists_in_Database = UsuarioDao

@@ -7,6 +7,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
+<!-- Pagina implementando JSTL -->
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	
+<!-- Cewolf -->	
+<%@taglib uri="/WEB-INF/cewolf.tld" prefix="cewolf" %>	
+
 <%
 	Usuario usuarioLoginAutenticado = (Usuario) session
 	.getAttribute("auth_session_usuario");
@@ -210,7 +216,22 @@
 			}
 		%>
 	</table>
-
+	
+	<br>
+	<!-- Pie Cewolf -->
+	<div>
+		<div style="float:right;">
+			<jsp:useBean id="beanPie" class="projetofinal.lp3.graphics.GraficoProdutoPie" />
+			<cewolf:chart id="graficoPie" type="pie" title="Categorias por produtos">
+				<cewolf:data>
+					<cewolf:producer id="beanPie"/>
+				</cewolf:data>
+			</cewolf:chart>
+			<p/>
+				<cewolf:img chartid="graficoPie" renderer="/cewolf" width="450" height="300"/>
+			<p/>
+		</div>
+	</div>
 </div>
 
 <!-- Clear HACK -->

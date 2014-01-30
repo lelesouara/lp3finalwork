@@ -1,12 +1,15 @@
 package projetofinal.lp3.dao;
 
 import java.util.List;
+import java.util.Properties;
 
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projection;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
 import projetofinal.lp3.models.Categoria;
@@ -119,4 +122,30 @@ public class ProdutoDao {
 		return produtos;
 	}
 	
+	public static Properties ProdutoInCategoria(){
+		List<Object> objetos = null;
+		Properties prop = new Properties();
+		
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		try {
+			session.beginTransaction();
+			
+			Criteria criteria = session.createCriteria(Produto.class);
+			criteria.setProjection(Projections.projectionList().add(Projections.rowCount()).add(Projections.groupProperty("categoria")));
+			
+			objetos = criteria.list();
+			for(Object o : objetos){
+				Object[] objArr = (Object[]) o;
+				prop.setProperty(((Categoria) objArr[1]).getTitulo(), 
+						objArr[0].toString());				
+			}
+			
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		} finally {
+			session.close();
+		}
+		return prop;
+	}
 }

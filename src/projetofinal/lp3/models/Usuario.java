@@ -41,6 +41,9 @@ public class Usuario implements Serializable{
 	@Column(name = "ativo")
 	private Integer ativo;
 	
+	@Column(name = "idioma")
+	private String idioma;
+	
 	@Column(name = "validacao")
 	private String validacao;
 	
@@ -58,6 +61,16 @@ public class Usuario implements Serializable{
 		this.ult_acesso = ult_acesso;
 		this.ativo = 0;
 		this.acl = 3;
+	}
+	
+	public Usuario(String login, String senha, Date ult_acesso, String idioma) {
+		super();
+		this.login = login;
+		this.senha = senha;
+		this.ult_acesso = ult_acesso;
+		this.ativo = 0;
+		this.acl = 3;
+		this.idioma = idioma;
 	}
 
 	public Usuario(String login, String senha) {
@@ -98,6 +111,14 @@ public class Usuario implements Serializable{
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+	
+	public String getIdioma() {
+		return idioma;
+	}
+
+	public void setIdioma(String idioma) {
+		this.idioma = idioma;
 	}
 
 	public Date getUlt_acesso() {
